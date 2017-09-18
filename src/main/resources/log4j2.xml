@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<Configuration status="debug">
+    
+    <Properties>
+        <Property name="pattern">%d{dd/MM/yyyy HH:mm:ss,SSS EEEE} %p [%-40c{1}] %m%n</Property>
+    </Properties>
+    
+    <Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="logs/log_paginacao.log"
+                     filePattern="$logs/log_paginacao-%d{yyyy-MM-dd-HH:mm:ss}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <Console name="Console">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+    </Appenders>
+    
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="br.com.pontualinf.integracao" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile" level="debug"/>
+        </Logger>
+    </Loggers>
+    
+</Configuration>
